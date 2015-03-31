@@ -2,64 +2,60 @@
 <openerp>
 <data>
 <template id="report_saleorder_document">
-    <t t-call="report.external_layout">
+    <t>
+    <div class="header">
+        <div>
+            <div class="text-left">
+                <strong>Nombre empleador</strong>
+            </div>
+           <div class="text-right">
+                <strong>C.I.</strong>
+            </div>
+            <div class="text-center">
+                <strong>B.P.S:</strong>
+            </div>
+        </div>
+        <div style="border-bottom: 1px solid black;"/>
+        <div class="row zero_min_height">
+            <div class="col-xs-12">
+                <div style="border-bottom: 1px solid black;"/>
+            </div>
+        </div>
+        <div>
+            <div class="text-left">
+                <strong>Nombre empleado</strong>
+                <strong>C.I.:</strong>
+                <strong>Ingreso:</strong>
+            </div>
+           <div class="text-center">
+                <strong>Categoria:</strong>
+                <strong>Turno:</strong>
+            </div>
+            <div class="text-right">
+                <strong>Fecha:</strong>
+                <strong>Liquidacion:</strong>
+            </div>
+        </div>
+        <div style="border-bottom: 1px solid black;"/>
+        <div class="row zero_min_height">
+            <div class="col-xs-12">
+                <div style="border-bottom: 1px solid black;"/>
+            </div>
+        </div>
+    </div>
+
+
         <div class="page">
             <div class="oe_structure"/>
-            <div class="row">
-                <div class="col-xs-6">
-                    <strong t-if="o.partner_shipping_id == o.partner_invoice_id">Invoice and shipping address:</strong>
-                    <strong t-if="o.partner_shipping_id != o.partner_invoice_id">Invoice address:</strong>
-                    <div t-field="o.partner_invoice_id" 
-                        t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
-                    <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
-                    <div t-if="o.partner_shipping_id != o.partner_invoice_id" class="mt8">
-                        <strong>Shipping address:</strong>
-                        <div t-field="o.partner_shipping_id" 
-                            t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}'/>
-                        <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
-                    </div>                        
-                </div>
-                <div class="col-xs-5 col-xs-offset-1">
-                    <div t-field="o.partner_id"
-                        t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
-                </div>
-            </div>
-
-            <h2>
-                <span t-if="o.state not in ['draft','sent']">Order N° </span>
-                <span t-if="o.state in ['draft','sent']">Quotation N° </span>
-                <span t-field="o.name"/>
-            </h2>
-
-            <div class="row mt32 mb32" id="informations">
-                <div t-if="o.client_order_ref" class="col-xs-3">
-                    <strong>Your Reference:</strong>
-                    <p t-field="o.client_order_ref"/>
-                </div>
-                <div t-if="o.date_order" class="col-xs-3">
-                    <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong>
-                    <strong t-if="o.state in ['draft','sent']">Quotation Date:</strong>
-                    <p t-field="o.date_order"/>
-                </div>
-                <div t-if="o.user_id.name" class="col-xs-3">
-                    <strong>Salesperson:</strong>
-                    <p t-field="o.user_id.name"/>
-                </div>
-                <div t-if="o.payment_term" class="col-xs-3">
-                    <strong>Payment Term:</strong>
-                    <p t-field="o.payment_term"/>
-                </div>
-            </div>
-
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Description</th>
-                        <th>Taxes</th>
-                        <th class="text-right">Quantity</th>
-                        <th class="text-right">Unit Price</th>
-                        <th groups="sale.group_discount_per_so_line">Disc.(%)</th>
-                        <th class="text-right">Price</th>
+                        <th>COD</th>
+                        <th>Descripcion</th>
+                        <th class="text-right">Cantidad</th>
+                        <th class="text-right">Precio Unitario</th>
+                        <th class="text-right">Haberes</th>
+                        <th class="text-right">Retenciones</th>
                     </tr>
                </thead>
                <tbody class="sale_tbody">
@@ -92,21 +88,14 @@
                 <div class="col-xs-4 pull-right">
                     <table class="table table-condensed">
                         <tr class="border-black">
-                            <td><strong>Total Without Taxes</strong></td>
+                            <td><strong>Totales</strong></td>
                             <td class="text-right">
                                 <span t-field="o.amount_untaxed"
                                     t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Taxes</td>
-                            <td class="text-right">
-                                <span t-field="o.amount_tax"
-                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
-                            </td>
-                        </tr>
                         <tr class="border-black">
-                            <td><strong>Total</strong></td>
+                            <td><strong>Liquido</strong></td>
                             <td class="text-right">
                                 <span t-field="o.amount_total"
                                     t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
@@ -116,12 +105,20 @@
                 </div>
             </div>
 
-            <p t-field="o.note" />
-            <p t-if="o.payment_term.note">
-                <strong>Payment Term:</strong>
-                <span t-field="o.payment_term.note"/>
-            </p>
+            <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    
+La empresa declara haber efectuado los aportes de seguridad social correspondientes a los haberes del mes anterior segun decreto 337/92.
+Son pesos uruguayos:    Dos mil doscientos cuarenta
+Recibi el importe y copia de esta liquidacion no teniendo nada que reclamar por ningun concepto.
+
+<strong class="text-right">Firma del Trabajador</strong>
+                </div>
+                <div class="text-center" style="border-top: 1px solid black;">
+                </div>
+            </div>
             <div class="oe_structure"/>
+        
         </div>
     </t>
 </template>
