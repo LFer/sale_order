@@ -107,7 +107,7 @@
 
             <div class="footer">
                 <div class="text-center" style="border-top: 1px solid black;">
-                    
+
 La empresa declara haber efectuado los aportes de seguridad social correspondientes a los haberes del mes anterior segun decreto 337/92.
 Son pesos uruguayos:    Dos mil doscientos cuarenta
 Recibi el importe y copia de esta liquidacion no teniendo nada que reclamar por ningun concepto.
@@ -118,7 +118,6 @@ Recibi el importe y copia de esta liquidacion no teniendo nada que reclamar por 
                 </div>
             </div>
             <div class="oe_structure"/>
-        
         </div>
     </t>
 </template>
